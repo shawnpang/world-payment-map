@@ -8,7 +8,7 @@ import Legend from "@/components/Legend";
 import RegionFilter from "@/components/RegionFilter";
 import SearchBar from "@/components/SearchBar";
 
-const WorldMap = dynamic(() => import("@/components/WorldMap"), { ssr: false });
+const GlobeMap = dynamic(() => import("@/components/GlobeMap"), { ssr: false });
 
 export default function Home() {
   const [selected, setSelected] = useState<CountryPaymentData | null>(null);
@@ -62,12 +62,11 @@ export default function Home() {
 
       {/* Map + Panel */}
       <div className="flex-1 flex flex-col lg:flex-row">
-        <div className="flex-1 relative">
-          <WorldMap
+        <div className="flex-1 relative min-h-[500px]">
+          <GlobeMap
             filteredIsos={filteredIsos}
-            hoveredIso={hoveredIso}
             selectedIso={selected?.iso ?? null}
-            onHover={setHoveredIso}
+            onHover={(iso) => setHoveredIso(iso)}
             onSelect={(iso) => {
               const country = paymentData.find(d => d.iso === iso);
               setSelected(country ?? null);
